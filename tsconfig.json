@@ -1,0 +1,35 @@
+{
+  "$schema": "./node_modules/@effect/tsgo/schema.json",
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": ["ES2022"],
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "types": ["node"],
+    "strict": true,
+    "skipLibCheck": true,
+    "noEmit": true,
+    "allowImportingTsExtensions": true,
+    "verbatimModuleSyntax": true,
+    "isolatedModules": true,
+    "erasableSyntaxOnly": true,
+    "plugins": [
+      {
+        "name": "@effect/language-service",
+        "diagnosticSeverity": {
+          "schemaClassMissingBrand": "off"
+        },
+        "allowedUnstableApis": [
+          "effect/FileSystem",
+          "effect/Path",
+          "effect/PlatformError",
+          "effect/Terminal",
+          "effect/process",
+          "effect/cli",
+          "@effect/platform-node"
+        ]
+      }
+    ]
+  },
+  "include": ["exercises/**/*.ts", "solutions/**/*.ts", "src/**/*.ts", "scripts/**/*.ts"]
+}

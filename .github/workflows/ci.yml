@@ -1,0 +1,45 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  # 先に lockfile を検証し、通った場合だけ他のジョブを実行する
+  actions-lock:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5.1.0
+      - name: gh actions-lock をインストール
+        run: gh extension install github/gh-actions-lock --pin v0.2.0
+        env:
+          GH_TOKEN: ${{ github.token }}
+      # 全ワークフローの依存が actions.lock に記録され、記録どおりのコミットであることを確認する
+      # （ワークフローの uses を変えたら、手元で `gh actions-lock` を実行して lockfile を更新する）
+      - name: Actions の lockfile を検証
+        run: gh actions-lock --verify
+        env:
+          GH_TOKEN: ${{ github.token }}
+
+  check:
+    needs: actions-lock
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5.1.0
+      - uses: actions/setup-node@v5.0.0
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - name: フォーマットのチェック
+        run: npm run fmt:check
+      - name: リント（演習ファイルは意図的に壊れているので除外）
+        run: npx oxlint src scripts solutions bin
+      - name: CLI と模範解答の型チェック
+        run: npm run typecheck
+      - name: 模範解答が通り、演習の初期状態が失敗することを確認
+        run: npm run check:solutions

@@ -1,0 +1,22 @@
+{
+  // TypeScript 7 の言語サーバーを使う（TypeScriptTeam.native-preview 拡張）
+  // npm install 時に @effect/tsgo が node_modules/typescript を Effect Language Service 入りに差し替えるので、
+  // ワークスペースの TypeScript を使うと Effect 固有の診断・補完・クイックフィックスも有効になる
+  "js/ts.experimental.useTsgo": true,
+  "js/ts.tsdk.path": "./node_modules/typescript/bin",
+  "js/ts.tsdk.promptToUseWorkspaceVersion": true,
+  "js/ts.tsdk.additionalLocations": ["./node_modules/typescript/bin"],
+
+  // oxfmt でフォーマット、oxlint でリント（oxc.oxc-vscode 拡張）
+  "editor.defaultFormatter": "oxc.oxc-vscode",
+  "editor.formatOnSave": true,
+  "[typescript]": {
+    "editor.defaultFormatter": "oxc.oxc-vscode"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "oxc.oxc-vscode"
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "oxc.oxc-vscode"
+  }
+}
