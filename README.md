@@ -40,6 +40,16 @@ npm start
 - `save-exact=true`: 依存を追加するときはバージョンを固定する
 - `devEngines`: Node.js 24 以上・npm 11.19 以上でなければ `npm install` や `npm run` をエラーにする
 
+### GitHub Actions の lockfile
+
+ワークフローが使う Action は [GitHub Actions のワークフロー lockfile](https://docs.github.com/actions/concepts/security/workflow-dependency-lockfiles)（`.github/workflows/actions.lock`）でコミットを固定しています。
+ワークフローの `uses` を追加・変更したときは、[gh-actions-lock](https://github.com/github/gh-actions-lock) で lockfile を更新してください。CI でも `gh actions-lock --verify` で検証しています。
+
+```sh
+gh extension install github/gh-actions-lock
+gh actions-lock
+```
+
 ## コマンド
 
 ```sh
