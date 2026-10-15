@@ -1,0 +1,30 @@
+{
+  "name": "effectlings",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Rustlings のように小さな演習を解きながら Effect-TS v4 を学ぶためのツール",
+  "type": "module",
+  "bin": {
+    "effectlings": "./bin/effectlings.js"
+  },
+  "scripts": {
+    "start": "tsx src/cli.ts watch",
+    "effectlings": "tsx src/cli.ts",
+    "list": "tsx src/cli.ts list",
+    "verify": "tsx src/cli.ts verify",
+    "typecheck": "tsc --noEmit -p tsconfig.dev.json",
+    "check:solutions": "tsx scripts/check-solutions.ts"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "@effect/platform-node": "^4.0.5",
+    "effect": "4.0.5",
+    "tsx": "^4.20.0",
+    "typescript": "^5.9.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0"
+  }
+}

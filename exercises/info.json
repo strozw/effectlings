@@ -1,0 +1,60 @@
+{
+  "exercises": [
+    {
+      "name": "intro1",
+      "path": "00_intro/intro1.ts",
+      "initiallyPasses": true,
+      "hint": "このファイルはすでに正しく動きます。1 行目の `// I AM NOT DONE` を削除して保存すると次へ進みます。"
+    },
+    {
+      "name": "basics1",
+      "path": "01_basics/basics1.ts",
+      "hint": "Effect.succeed に渡している値の型を見てみましょう。\"42\" は文字列です。"
+    },
+    {
+      "name": "basics2",
+      "path": "01_basics/basics2.ts",
+      "hint": "increment は Effect.sync(() => ...) で包むと、実行のたびに評価されます。failure は Effect.fail を使いましょう。"
+    },
+    {
+      "name": "basics3",
+      "path": "01_basics/basics3.ts",
+      "hint": "withTax は price.pipe(Effect.map((n) => ...)) の形にします。関数が Effect を返すときは Effect.map ではなく Effect.flatMap を使います。"
+    },
+    {
+      "name": "gen1",
+      "path": "02_gen/gen1.ts",
+      "hint": "Effect.gen の中では `yield*` を付けないと Effect の成功値を取り出せません。`const user = yield* getUser(1)` のように書きます。"
+    },
+    {
+      "name": "gen2",
+      "path": "02_gen/gen2.ts",
+      "hint": "Effect.gen の中で失敗させるには `return yield* Effect.fail(\"...\")` と書きます。"
+    },
+    {
+      "name": "errors1",
+      "path": "03_errors/errors1.ts",
+      "hint": "class NotFoundError extends Data.TaggedError(\"NotFoundError\")<{ readonly id: string }> {} と定義し、findItem(id).pipe(Effect.catchTag(\"NotFoundError\", (e) => Effect.succeed(...))) で回復させます。"
+    },
+    {
+      "name": "errors2",
+      "path": "03_errors/errors2.ts",
+      "hint": "Effect.try({ try: () => JSON.parse(input), catch: () => new ParseError({ input }) }) の形です。Promise には Effect.tryPromise を使います。"
+    },
+    {
+      "name": "errors3",
+      "path": "03_errors/errors3.ts",
+      "hint": "Effect.catchTags({ TimeoutError: ..., NotFoundError: ... }) で 2 つを処理します。describe では pipe の中で Effect.result を挟み、その後 Effect.map で Result.isSuccess を使って分岐します。"
+    },
+    {
+      "name": "services1",
+      "path": "04_services/services1.ts",
+      "hint": "rollDice.pipe(Effect.provideService(Random, { next: Effect.succeed(0.5) })) のように実装を渡します。"
+    },
+    {
+      "name": "services2",
+      "path": "04_services/services2.ts",
+      "hint": "ConfigLive は Layer.succeed(Config, { greeting: \"Hello\" }) です。GreeterLive.pipe(Layer.provide(ConfigLive)) で依存を満たした Layer を Effect.provide に渡しましょう。"
+    }
+  ]
+}
