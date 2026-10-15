@@ -26,6 +26,7 @@
           "effect/Terminal",
           "effect/process",
           "effect/cli",
+          "effect/testing/TestConsole",
           "@effect/platform-node"
         ]
       }
