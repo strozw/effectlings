@@ -26,6 +26,8 @@
           "effect/Terminal",
           "effect/process",
           "effect/cli",
+          "effect/http/HttpClient",
+          "effect/http/HttpClientResponse",
           "effect/testing/TestConsole",
           "@effect/platform-node"
         ]
