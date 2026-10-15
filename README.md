@@ -116,6 +116,7 @@ npm run fmt:check  # フォーマット済みかを確認
 | `14_effect_fn`        | `Effect.fn`、`annotateLogs` と `withLogSpan`                                                |
 | `15_more_concurrency` | `Semaphore`、`PubSub`、`Cache`                                                              |
 | `16_testing`          | テスト用の `Layer`、`Console` と `TestConsole`、`TestClock`                                 |
+| `17_platform`         | `FileSystem` と `Path`、`HttpClient`、`effect/cli` の `Command`                             |
 
 `solutions/` に模範解答があります。解き終わってから答え合わせに使ってください。
 
