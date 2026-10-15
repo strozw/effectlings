@@ -28,9 +28,7 @@ const findItem = (id: string): Effect.Effect<string, NotFoundError | Unauthorize
 }
 
 export const recovered = (id: string) =>
-  findItem(id).pipe(
-    Effect.catchTag("NotFoundError", (e) => Effect.succeed(`default-${e.id}`))
-  )
+  findItem(id).pipe(Effect.catchTag("NotFoundError", (e) => Effect.succeed(`default-${e.id}`)))
 
 // --- テスト（ここから下は編集しないでください） ---
 

@@ -17,13 +17,19 @@
 import { Context, Effect, Layer } from "effect"
 import assert from "node:assert/strict"
 
-class Config extends Context.Service<Config, {
-  readonly greeting: string
-}>()("Config") {}
+class Config extends Context.Service<
+  Config,
+  {
+    readonly greeting: string
+  }
+>()("Config") {}
 
-class Greeter extends Context.Service<Greeter, {
-  readonly greet: (name: string) => Effect.Effect<string>
-}>()("Greeter") {}
+class Greeter extends Context.Service<
+  Greeter,
+  {
+    readonly greet: (name: string) => Effect.Effect<string>
+  }
+>()("Greeter") {}
 
 export const ConfigLive: Layer.Layer<Config> = Layer.empty
 

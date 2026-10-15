@@ -27,9 +27,7 @@ export const parseJson = (input: string): Effect.Effect<unknown, ParseError> =>
   })
 
 const fakeFetch = (url: string): Promise<string> =>
-  url.startsWith("https://")
-    ? Promise.resolve(`<html>${url}</html>`)
-    : Promise.reject(new Error(`invalid url: ${url}`))
+  url.startsWith("https://") ? Promise.resolve(`<html>${url}</html>`) : Promise.reject(new Error(`invalid url: ${url}`))
 
 export const fetchText = (url: string): Effect.Effect<string, FetchError> =>
   Effect.tryPromise({

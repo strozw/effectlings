@@ -22,16 +22,12 @@ class ParseError extends Data.TaggedError("ParseError")<{ readonly input: string
 
 class FetchError extends Data.TaggedError("FetchError")<{ readonly url: string }> {}
 
-export const parseJson = (input: string): Effect.Effect<unknown, ParseError> =>
-  Effect.sync(() => JSON.parse(input))
+export const parseJson = (input: string): Effect.Effect<unknown, ParseError> => Effect.sync(() => JSON.parse(input))
 
 const fakeFetch = (url: string): Promise<string> =>
-  url.startsWith("https://")
-    ? Promise.resolve(`<html>${url}</html>`)
-    : Promise.reject(new Error(`invalid url: ${url}`))
+  url.startsWith("https://") ? Promise.resolve(`<html>${url}</html>`) : Promise.reject(new Error(`invalid url: ${url}`))
 
-export const fetchText = (url: string): Effect.Effect<string, FetchError> =>
-  Effect.promise(() => fakeFetch(url))
+export const fetchText = (url: string): Effect.Effect<string, FetchError> => Effect.promise(() => fakeFetch(url))
 
 // --- テスト（ここから下は編集しないでください） ---
 

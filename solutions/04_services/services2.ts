@@ -15,13 +15,19 @@
 import { Context, Effect, Layer } from "effect"
 import assert from "node:assert/strict"
 
-class Config extends Context.Service<Config, {
-  readonly greeting: string
-}>()("Config") {}
+class Config extends Context.Service<
+  Config,
+  {
+    readonly greeting: string
+  }
+>()("Config") {}
 
-class Greeter extends Context.Service<Greeter, {
-  readonly greet: (name: string) => Effect.Effect<string>
-}>()("Greeter") {}
+class Greeter extends Context.Service<
+  Greeter,
+  {
+    readonly greet: (name: string) => Effect.Effect<string>
+  }
+>()("Greeter") {}
 
 export const ConfigLive: Layer.Layer<Config> = Layer.succeed(Config, { greeting: "Hello" })
 
@@ -41,9 +47,7 @@ const main = Effect.gen(function* () {
   return yield* greeter.greet("Effect")
 })
 
-export const runnable: Effect.Effect<string> = main.pipe(
-  Effect.provide(GreeterLive.pipe(Layer.provide(ConfigLive)))
-)
+export const runnable: Effect.Effect<string> = main.pipe(Effect.provide(GreeterLive.pipe(Layer.provide(ConfigLive))))
 
 // --- テスト（ここから下は編集しないでください） ---
 

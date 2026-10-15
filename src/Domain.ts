@@ -34,7 +34,7 @@ export interface VerifyResult {
 }
 
 export class ExerciseNotFound extends Schema.TaggedError<ExerciseNotFound>()("ExerciseNotFound", {
-  name: Schema.String
+  query: Schema.String
 }) {}
 
 /** 検証に失敗したことを表す（メッセージは表示済みなので、終了コードだけに使う） */

@@ -17,17 +17,11 @@ const price = Effect.succeed(100)
 export const withTax = price.pipe(Effect.map((n) => Math.round(n * 1.1)))
 
 const applyDiscount = (total: number, discount: number): Effect.Effect<number, string> =>
-  total - discount < 0
-    ? Effect.fail("割引額が大きすぎます")
-    : Effect.succeed(total - discount)
+  total - discount < 0 ? Effect.fail("割引額が大きすぎます") : Effect.succeed(total - discount)
 
-export const discounted = withTax.pipe(
-  Effect.flatMap((total) => applyDiscount(total, 10))
-)
+export const discounted = withTax.pipe(Effect.flatMap((total) => applyDiscount(total, 10)))
 
-export const tooMuch = withTax.pipe(
-  Effect.flatMap((total) => applyDiscount(total, 1000))
-)
+export const tooMuch = withTax.pipe(Effect.flatMap((total) => applyDiscount(total, 1000)))
 
 // --- テスト（ここから下は編集しないでください） ---
 

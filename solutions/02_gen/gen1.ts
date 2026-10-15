@@ -16,8 +16,7 @@ import assert from "node:assert/strict"
 
 const getUser = (id: number) => Effect.succeed({ id, name: `user-${id}` })
 
-const getPosts = (userId: number) =>
-  Effect.succeed([`post-${userId}-a`, `post-${userId}-b`, `post-${userId}-c`])
+const getPosts = (userId: number) => Effect.succeed([`post-${userId}-a`, `post-${userId}-b`, `post-${userId}-c`])
 
 export const program = Effect.gen(function* () {
   const user = yield* getUser(1)

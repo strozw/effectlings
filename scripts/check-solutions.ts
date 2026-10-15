@@ -8,7 +8,7 @@ import { MARKER } from "../src/Domain.ts"
 import { Exercises } from "../src/Exercises.ts"
 import { Verifier } from "../src/Verifier.ts"
 
-const program = Effect.gen(function*() {
+const program = Effect.gen(function* () {
   const exercises = yield* Exercises
   const verifier = yield* Verifier
   const fs = yield* FileSystem.FileSystem

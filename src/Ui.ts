@@ -21,13 +21,13 @@ export const progressBar = (done: number, total: number, width = 40): string => 
   return `[${green("#".repeat(filled))}${dim("-".repeat(width - filled))}] ${done}/${total}`
 }
 
-export const printProgress = Effect.gen(function*() {
+export const printProgress = Effect.gen(function* () {
   const exercises = yield* Exercises
   yield* Console.log(progressBar(yield* exercises.countDone, exercises.all.length))
 })
 
 /** 検証結果を表示する */
-export const printResult = Effect.fnUntraced(function*(exercise: Exercise, result: VerifyResult) {
+export const printResult = Effect.fnUntraced(function* (exercise: Exercise, result: VerifyResult) {
   const exercises = yield* Exercises
   const file = exercises.displayPath(exercise)
   if (result.output.trim().length > 0) {
@@ -46,7 +46,7 @@ export const printResult = Effect.fnUntraced(function*(exercise: Exercise, resul
 })
 
 /** 演習の一覧と進捗を表示する */
-export const printList = Effect.gen(function*() {
+export const printList = Effect.gen(function* () {
   const exercises = yield* Exercises
   const current = yield* exercises.firstPending
   yield* Console.log(bold("  状態    名前          パス"))

@@ -15,6 +15,10 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
+      - name: フォーマットのチェック
+        run: npm run fmt:check
+      - name: リント（演習ファイルは意図的に壊れているので除外）
+        run: npx oxlint src scripts solutions bin
       - name: CLI と模範解答の型チェック
         run: npm run typecheck
       - name: 模範解答が通り、演習の初期状態が失敗することを確認

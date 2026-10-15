@@ -22,9 +22,7 @@ class TimeoutError extends Data.TaggedError("TimeoutError")<{}> {}
 class NotFoundError extends Data.TaggedError("NotFoundError")<{}> {}
 class ValidationError extends Data.TaggedError("ValidationError")<{ readonly field: string }> {}
 
-const request = (
-  input: string
-): Effect.Effect<string, TimeoutError | NotFoundError | ValidationError> => {
+const request = (input: string): Effect.Effect<string, TimeoutError | NotFoundError | ValidationError> => {
   switch (input) {
     case "slow":
       return Effect.fail(new TimeoutError())
@@ -38,14 +36,10 @@ const request = (
 }
 
 export const handled = (input: string) =>
-  request(input).pipe(
-    Effect.catchTag("TimeoutError", () => Effect.succeed("timeout"))
-  )
+  request(input).pipe(Effect.catchTag("TimeoutError", () => Effect.succeed("timeout")))
 
 export const describe = (input: string): Effect.Effect<string> =>
-  handled(input).pipe(
-    Effect.map((value) => `ok: ${value}`)
-  )
+  handled(input).pipe(Effect.map((value) => `ok: ${value}`))
 
 // --- テスト（ここから下は編集しないでください） ---
 

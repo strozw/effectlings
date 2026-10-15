@@ -14,9 +14,12 @@
 import { Context, Effect } from "effect"
 import assert from "node:assert/strict"
 
-class Random extends Context.Service<Random, {
-  readonly next: Effect.Effect<number>
-}>()("Random") {}
+class Random extends Context.Service<
+  Random,
+  {
+    readonly next: Effect.Effect<number>
+  }
+>()("Random") {}
 
 export const rollDice = Effect.gen(function* () {
   const random = yield* Random

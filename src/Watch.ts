@@ -4,9 +4,7 @@ import { Exercises } from "./Exercises.ts"
 import { bold, clearScreen, cyan, dim, green, printList, printProgress, printResult } from "./Ui.ts"
 import { Verifier } from "./Verifier.ts"
 
-type WatchEvent =
-  | { readonly _tag: "FileChanged" }
-  | { readonly _tag: "Key"; readonly name: string }
+type WatchEvent = { readonly _tag: "FileChanged" } | { readonly _tag: "Key"; readonly name: string }
 
 class Quit extends Schema.TaggedError<Quit>()("Quit", {}) {}
 
@@ -16,13 +14,13 @@ class Quit extends Schema.TaggedError<Quit>()("Quit", {}) {}
  * 演習ファイルの変更とキー入力を 1 本の Stream にまとめ、イベントごとに画面を描き直す。
  * 現在の演習は毎回「最初の未完了の演習」として計算するので、マーカーを消すと自動的に次へ進む。
  */
-export const watch = Effect.gen(function*() {
+export const watch = Effect.gen(function* () {
   const exercises = yield* Exercises
   const verifier = yield* Verifier
   const fs = yield* FileSystem.FileSystem
   const showHint = yield* Ref.make(false)
 
-  const render = Effect.gen(function*() {
+  const render = Effect.gen(function* () {
     yield* clearScreen
     const current = yield* exercises.firstPending
     if (current._tag === "None") {
@@ -46,25 +44,27 @@ export const watch = Effect.gen(function*() {
   })
 
   // 保存時は複数のイベントが連続して届くので、まとめてから 1 回だけ処理する
-  const fileChanges: Stream.Stream<WatchEvent, PlatformError> = fs.watch(exercises.exercisesDir, { recursive: true }).pipe(
-    Stream.filter((event) => event.path.endsWith(".ts")),
-    Stream.debounce("150 millis"),
-    Stream.map((): WatchEvent => ({ _tag: "FileChanged" }))
-  )
+  const fileChanges: Stream.Stream<WatchEvent, PlatformError> = fs
+    .watch(exercises.exercisesDir, { recursive: true })
+    .pipe(
+      Stream.filter((event) => event.path.endsWith(".ts")),
+      Stream.debounce("150 millis"),
+      Stream.map((): WatchEvent => ({ _tag: "FileChanged" }))
+    )
 
   const keys: Stream.Stream<WatchEvent, never, Terminal.Terminal> = process.stdin.isTTY
     ? Stream.unwrap(
-      Effect.gen(function*() {
-        const terminal = yield* Terminal.Terminal
-        const input = yield* terminal.readInput
-        return Stream.fromQueue(input).pipe(
-          Stream.map((input): WatchEvent => ({
-            _tag: "Key",
-            name: input.key.ctrl && input.key.name === "c" ? "q" : input.key.name
-          }))
-        )
-      })
-    )
+        Effect.gen(function* () {
+          const terminal = yield* Terminal.Terminal
+          const input = yield* terminal.readInput
+          return Stream.fromQueue(input).pipe(
+            Stream.map((input): WatchEvent => ({
+              _tag: "Key",
+              name: input.key.ctrl && input.key.name === "c" ? "q" : input.key.name
+            }))
+          )
+        })
+      )
     : Stream.empty
 
   const handle = (event: WatchEvent): Effect.Effect<void, Quit | PlatformError, Exercises> => {
@@ -77,10 +77,7 @@ export const watch = Effect.gen(function*() {
       case "r":
         return render
       case "l":
-        return clearScreen.pipe(
-          Effect.andThen(printList),
-          Effect.andThen(Console.log(dim("\nr: 演習に戻る  q: 終了")))
-        )
+        return clearScreen.pipe(Effect.andThen(printList), Effect.andThen(Console.log(dim("\nr: 演習に戻る  q: 終了"))))
       default:
         return Effect.void
     }
