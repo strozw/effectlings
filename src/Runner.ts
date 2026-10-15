@@ -5,7 +5,7 @@ import { Exercises } from "./Exercises.ts"
 
 const TIMEOUT = Duration.seconds(15)
 
-/** 演習ファイルを tsx で実行し、テスト（node:assert）が通るかを確かめるサービス */
+/** 演習ファイルを Node.js（型注釈を取り除いて実行する機能）で実行し、テスト（node:assert）が通るかを確かめるサービス */
 export class Runner extends Context.Service<
   Runner,
   {
@@ -17,12 +17,11 @@ export class Runner extends Context.Service<
     Effect.gen(function* () {
       const spawner = yield* ChildProcessSpawner.ChildProcessSpawner
       const { root } = yield* Exercises
-      const tsx = import.meta.resolve("tsx")
 
       const run = Effect.fnUntraced(
         function* (file: string) {
           const handle = yield* spawner.spawn(
-            ChildProcess.make(process.execPath, ["--import", tsx, file], {
+            ChildProcess.make(process.execPath, [file], {
               cwd: root,
               env: { FORCE_COLOR: process.stdout.isTTY ? "1" : "0" },
               extendEnv: true

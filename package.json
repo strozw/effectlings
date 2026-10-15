@@ -8,12 +8,12 @@
   },
   "type": "module",
   "scripts": {
-    "start": "tsx src/cli.ts watch",
-    "effectlings": "tsx src/cli.ts",
-    "list": "tsx src/cli.ts list",
-    "verify": "tsx src/cli.ts verify",
+    "start": "node src/cli.ts watch",
+    "effectlings": "node src/cli.ts",
+    "list": "node src/cli.ts list",
+    "verify": "node src/cli.ts verify",
     "typecheck": "tsc --noEmit -p tsconfig.dev.json",
-    "check:solutions": "tsx scripts/check-solutions.ts",
+    "check:solutions": "node scripts/check-solutions.ts",
     "prepare": "effect-tsgo patch --typescript",
     "lint": "oxlint",
     "fmt": "oxfmt",
@@ -22,7 +22,6 @@
   "dependencies": {
     "@effect/platform-node": "4.0.5",
     "effect": "4.0.5",
-    "tsx": "^4.20.0",
     "typescript": "7.0.2"
   },
   "devDependencies": {
@@ -32,6 +31,6 @@
     "oxlint": "1.88.0"
   },
   "engines": {
-    "node": ">=20"
+    "node": ">=22.18"
   }
 }

@@ -12,7 +12,7 @@
 
 ## はじめかた
 
-Node.js 20 以上が必要です。
+Node.js 22.18 以上が必要です（TypeScript ファイルを Node.js で直接実行するため）。
 
 ```sh
 git clone https://github.com/strozw/effectlings.git
