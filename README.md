@@ -12,7 +12,7 @@
 
 ## はじめかた
 
-Node.js 24 以上が必要です（TypeScript ファイルを Node.js で直接実行します）。
+Node.js 24 以上と npm 11.19.1 以上が必要です（Node.js 24 に同梱の npm で動きます）。TypeScript ファイルは Node.js で直接実行します。
 
 ```sh
 git clone https://github.com/strozw/effectlings.git
@@ -30,6 +30,15 @@ npm start
 | `l`  | 演習の一覧と進捗      |
 | `r`  | 再実行                |
 | `q`  | 終了                  |
+
+## npm の安全設定
+
+サプライチェーン攻撃を避けるため、`.npmrc` と `package.json` で次のように設定しています。
+
+- `min-release-age=7`: 公開から 7 日経っていないバージョンは新たにインストールしない
+- `strict-allow-scripts=true`: 依存パッケージの install スクリプトは `package.json` の `allowScripts` で許可したものだけを実行し、未確認のものがあればインストールを失敗させる（現在の依存には install スクリプトを持つものはありません）
+- `save-exact=true`: 依存を追加するときはバージョンを固定する
+- `devEngines`: Node.js 24 以上・npm 11.19.1 以上でなければ `npm install` や `npm run` をエラーにする
 
 ## コマンド
 

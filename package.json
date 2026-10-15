@@ -32,5 +32,18 @@
   },
   "engines": {
     "node": ">=24"
-  }
+  },
+  "devEngines": {
+    "runtime": {
+      "name": "node",
+      "version": ">=24",
+      "onFail": "error"
+    },
+    "packageManager": {
+      "name": "npm",
+      "version": ">=11.19.1",
+      "onFail": "error"
+    }
+  },
+  "allowScripts": {}
 }
