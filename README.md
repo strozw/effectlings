@@ -1,5 +1,9 @@
 # Effectlings
 
+> [!NOTE]
+> 個人的に Effect を学習するために、[Claude Code](https://claude.com/claude-code) に作らせたツールです。
+> 演習の内容や説明に誤りが含まれている可能性があります。
+
 [Rustlings](https://rustlings.rust-lang.org/) のように、小さな演習を 1 つずつ解きながら
 [Effect-TS v4](https://effect.website/docs/v4/getting-started) の使い方を学ぶためのツールです。
 
