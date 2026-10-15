@@ -26,11 +26,11 @@
   },
   "devDependencies": {
     "@effect/tsgo": "0.53.0",
-    "@types/node": "^22.0.0",
+    "@types/node": "^24.0.0",
     "oxfmt": "0.73.0",
     "oxlint": "1.88.0"
   },
   "engines": {
-    "node": ">=22.18"
+    "node": ">=24"
   }
 }
