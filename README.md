@@ -97,26 +97,27 @@ npm run fmt:check  # フォーマット済みかを確認
 
 ## 演習一覧
 
-| ディレクトリ          | 内容                                                                                        |
-| --------------------- | ------------------------------------------------------------------------------------------- |
-| `00_intro`            | 使い方                                                                                      |
-| `01_basics`           | `Effect.succeed` / `sync` / `fail`、`runSync`、`pipe` / `map` / `flatMap`                   |
-| `02_gen`              | `Effect.gen` と `yield*`、gen の中での失敗                                                  |
-| `03_errors`           | `Data.TaggedError`、`catchTag` / `catchTags`、`Effect.try` / `tryPromise`、`Effect.result`  |
-| `04_services`         | `Context.Service`、`provideService`、`Layer`                                                |
-| `05_data`             | `Option`、`Match`、`Equal` と `HashSet`                                                     |
-| `06_resources`        | `Effect.acquireRelease` と `Effect.scoped`、リソースを持つ `Layer.effect`                   |
-| `07_concurrency`      | `concurrency` オプション、`forkChild` / `Fiber.join` / `Fiber.interrupt`、`race`、`timeout` |
-| `08_schedule`         | `Effect.retry` / `repeat`、`Schedule.exponential` / `spaced`、`TestClock`                   |
-| `09_state`            | `Ref`、`Deferred`、`Queue`                                                                  |
-| `10_schema`           | `Schema.Struct`、`FiniteFromString` と `check`、`decodeUnknownEffect`、`Schema.Class`       |
-| `11_config_logging`   | `Config` / `ConfigProvider` / `Redacted`、`Effect.log` と `Logger`                          |
-| `12_stream`           | `Stream` の基本、`runCollect` / `runFold`、`mapEffect` と `grouped`                         |
-| `13_cause_exit`       | 型付きエラーと欠陥（`die` / `orDie` / `catchDefect`）、`Exit` と `Cause`                    |
-| `14_effect_fn`        | `Effect.fn`、`annotateLogs` と `withLogSpan`                                                |
-| `15_more_concurrency` | `Semaphore`、`PubSub`、`Cache`                                                              |
-| `16_testing`          | テスト用の `Layer`、`Console` と `TestConsole`、`TestClock`                                 |
-| `17_platform`         | `FileSystem` と `Path`、`HttpClient`、`effect/cli` の `Command`                             |
+| ディレクトリ          | 内容                                                                                                                   |
+| --------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| `00_intro`            | 使い方                                                                                                                 |
+| `01_basics`           | `Effect.succeed` / `sync` / `fail`、`runSync`、`pipe` / `map` / `flatMap`                                              |
+| `02_gen`              | `Effect.gen` と `yield*`、gen の中での失敗                                                                             |
+| `03_errors`           | `Data.TaggedError`、`catchTag` / `catchTags`、`Effect.try` / `tryPromise`、`Effect.result`                             |
+| `04_services`         | `Context.Service`、`provideService`、`Layer`                                                                           |
+| `05_data`             | `Option`、`Match`、`Equal` と `HashSet`                                                                                |
+| `06_resources`        | `Effect.acquireRelease` と `Effect.scoped`、リソースを持つ `Layer.effect`                                              |
+| `07_concurrency`      | `concurrency` オプション、`forkChild` / `Fiber.join` / `Fiber.interrupt`、`race`、`timeout`                            |
+| `08_schedule`         | `Effect.retry` / `repeat`、`Schedule.exponential` / `spaced`、`TestClock`                                              |
+| `09_state`            | `Ref`、`Deferred`、`Queue`                                                                                             |
+| `10_schema`           | `Schema.Struct`、`FiniteFromString` と `check`、`decodeUnknownEffect`、`Schema.Class`                                  |
+| `11_config_logging`   | `Config` / `ConfigProvider` / `Redacted`、`Effect.log` と `Logger`                                                     |
+| `12_stream`           | `Stream` の基本、`runCollect` / `runFold`、`mapEffect` と `grouped`                                                    |
+| `13_cause_exit`       | 型付きエラーと欠陥（`die` / `orDie` / `catchDefect`）、`Exit` と `Cause`                                               |
+| `14_effect_fn`        | `Effect.fn`、`annotateLogs` と `withLogSpan`                                                                           |
+| `15_more_concurrency` | `Semaphore`、`PubSub`、`Cache`                                                                                         |
+| `16_testing`          | テスト用の `Layer`、`Console` と `TestConsole`、`TestClock`                                                            |
+| `17_platform`         | `FileSystem` と `Path`、`HttpClient`、`effect/cli` の `Command`                                                        |
+| `18_capstone`         | 総まとめ: ブックマーク管理（Service / Ref / Schema / Effect.fn）とリンクチェッカー（並行実行 / 再試行 / タイムアウト） |
 
 `solutions/` に模範解答があります。解き終わってから答え合わせに使ってください。
 
