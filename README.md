@@ -97,13 +97,21 @@ npm run fmt:check  # フォーマット済みかを確認
 
 ## 演習一覧
 
-| ディレクトリ  | 内容                                                                                       |
-| ------------- | ------------------------------------------------------------------------------------------ |
-| `00_intro`    | 使い方                                                                                     |
-| `01_basics`   | `Effect.succeed` / `sync` / `fail`、`runSync`、`pipe` / `map` / `flatMap`                  |
-| `02_gen`      | `Effect.gen` と `yield*`、gen の中での失敗                                                 |
-| `03_errors`   | `Data.TaggedError`、`catchTag` / `catchTags`、`Effect.try` / `tryPromise`、`Effect.result` |
-| `04_services` | `Context.Service`、`provideService`、`Layer`                                               |
+| ディレクトリ        | 内容                                                                                        |
+| ------------------- | ------------------------------------------------------------------------------------------- |
+| `00_intro`          | 使い方                                                                                      |
+| `01_basics`         | `Effect.succeed` / `sync` / `fail`、`runSync`、`pipe` / `map` / `flatMap`                   |
+| `02_gen`            | `Effect.gen` と `yield*`、gen の中での失敗                                                  |
+| `03_errors`         | `Data.TaggedError`、`catchTag` / `catchTags`、`Effect.try` / `tryPromise`、`Effect.result`  |
+| `04_services`       | `Context.Service`、`provideService`、`Layer`                                                |
+| `05_data`           | `Option`、`Match`、`Equal` と `HashSet`                                                     |
+| `06_resources`      | `Effect.acquireRelease` と `Effect.scoped`、リソースを持つ `Layer.effect`                   |
+| `07_concurrency`    | `concurrency` オプション、`forkChild` / `Fiber.join` / `Fiber.interrupt`、`race`、`timeout` |
+| `08_schedule`       | `Effect.retry` / `repeat`、`Schedule.exponential` / `spaced`、`TestClock`                   |
+| `09_state`          | `Ref`、`Deferred`、`Queue`                                                                  |
+| `10_schema`         | `Schema.Struct`、`FiniteFromString` と `check`、`decodeUnknownEffect`、`Schema.Class`       |
+| `11_config_logging` | `Config` / `ConfigProvider` / `Redacted`、`Effect.log` と `Logger`                          |
+| `12_stream`         | `Stream` の基本、`runCollect` / `runFold`、`mapEffect` と `grouped`                         |
 
 `solutions/` に模範解答があります。解き終わってから答え合わせに使ってください。
 

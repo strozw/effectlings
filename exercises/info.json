@@ -55,6 +55,106 @@
       "name": "services2",
       "path": "04_services/services2.ts",
       "hint": "ConfigLive は Layer.succeed(Config, { greeting: \"Hello\" }) です。GreeterLive.pipe(Layer.provide(ConfigLive)) で依存を満たした Layer を Effect.provide に渡しましょう。"
+    },
+    {
+      "name": "data1",
+      "path": "05_data/data1.ts",
+      "hint": "Array の find は User | undefined を返すので Option.fromNullishOr で包みます。displayName は Option.getOrElse(() => \"GUEST\") を pipe に足し、greeting は Option.match(findUser(id), { onNone: ..., onSome: ... }) で分岐します。"
+    },
+    {
+      "name": "data2",
+      "path": "05_data/data2.ts",
+      "hint": "area には Match.tag(\"Triangle\", (t) => (t.base * t.height) / 2) を足します。label は Match.orElse の前に Match.when({ _tag: \"Circle\", radius: 0 }, () => \"点\") を置きます。"
+    },
+    {
+      "name": "data3",
+      "path": "05_data/data3.ts",
+      "hint": "=== の代わりに Equal.equals(a, b) を使います。uniquePoints は JavaScript の Set ではなく HashSet.fromIterable(visited) で作ります。"
+    },
+    {
+      "name": "resources1",
+      "path": "06_resources/resources1.ts",
+      "hint": "connection は Effect.acquireRelease(Effect.sync(openConnection), (conn) => Effect.sync(conn.close)) です。すると R に Scope が残るので、useConnection の Effect.gen 全体を Effect.scoped(...) で囲みます。"
+    },
+    {
+      "name": "resources2",
+      "path": "06_resources/resources2.ts",
+      "hint": "Layer.effect(Database, Effect.gen(function* () { const pool = yield* Effect.acquireRelease(Effect.sync(openPool), (pool) => Effect.sync(pool.close)); return { query: ... } })) の形にします。モジュールの先頭で openPool() を呼んでいる行は削除しましょう。"
+    },
+    {
+      "name": "concurrency1",
+      "path": "07_concurrency/concurrency1.ts",
+      "hint": "Effect.all の第 2 引数に { concurrency: \"unbounded\" } を、Effect.forEach の第 3 引数に { concurrency: 2 } を渡します。"
+    },
+    {
+      "name": "concurrency2",
+      "path": "07_concurrency/concurrency2.ts",
+      "hint": "const fiber = yield* Effect.forkChild(backgroundJob) で開始し、mainWork のあとに yield* Fiber.join(fiber) で結果を受け取ります。ticker も forkChild で受け取った fiber を Fiber.interrupt(fiber) で中断します。"
+    },
+    {
+      "name": "concurrency3",
+      "path": "07_concurrency/concurrency3.ts",
+      "hint": "fastest は Effect.race(primary, mirror)、strict は primary.pipe(Effect.timeout(\"50 millis\")) です。withFallback は Effect.timeoutOrElse({ duration: \"50 millis\", orElse: () => Effect.succeed(\"cached\") }) を使います。"
+    },
+    {
+      "name": "schedule1",
+      "path": "08_schedule/schedule1.ts",
+      "hint": "fetchQuote.pipe(Effect.retry({ times: 3 })) で再試行できます。条件付きにするには { times: 3, while: (error) => error._tag === \"NetworkError\" } を渡します。"
+    },
+    {
+      "name": "schedule2",
+      "path": "08_schedule/schedule2.ts",
+      "hint": "retry のオプションに schedule: Schedule.exponential(\"100 millis\") を、repeat のオプションに schedule: Schedule.spaced(\"1 second\") を追加します。times はそのままで構いません。"
+    },
+    {
+      "name": "state1",
+      "path": "09_state/state1.ts",
+      "hint": "get して set する代わりに Ref.update(counter, (n) => n + 1) を返すようにすると、読み込みと書き込みが一度に行われます。"
+    },
+    {
+      "name": "state2",
+      "path": "09_state/state2.ts",
+      "hint": "yield* setup のあとに yield* Deferred.succeed(start, \"go\") を追加します。今は誰も合図を送らないので worker が永遠に待ち続けています。"
+    },
+    {
+      "name": "state3",
+      "path": "09_state/state3.ts",
+      "hint": "producer は Effect.forEach([1, 2, 3, 4, 5], (n) => Queue.offer(queue, n), { discard: true })、consumer は 5 回 Queue.take(queue) して `order-${n}` に変換します（Effect.forEach が使えます）。"
+    },
+    {
+      "name": "schema1",
+      "path": "10_schema/schema1.ts",
+      "hint": "role を roles: Schema.Array(Schema.String) に置き換え、email は Schema.optional(Schema.String) にします。"
+    },
+    {
+      "name": "schema2",
+      "path": "10_schema/schema2.ts",
+      "hint": "name は Schema.String.check(Schema.isMinLength(1))、age は Schema.FiniteFromString.check(Schema.isBetween({ minimum: 0, maximum: 150 }))、newsletter は Schema.Literals([\"on\", \"off\"]) です。"
+    },
+    {
+      "name": "schema3",
+      "path": "10_schema/schema3.ts",
+      "hint": "parseTodo は Schema.decodeUnknownEffect(Todo)(input) を返します。decodeUnknownSync は失敗を例外で投げるので、Effect のエラーになりません。describeTodo には Effect.catchTag(\"SchemaError\", (error) => Effect.succeed(`invalid todo: ${error.message}`)) を足します。"
+    },
+    {
+      "name": "config1",
+      "path": "11_config_logging/config1.ts",
+      "hint": "PORT は Config.Port(\"PORT\").pipe(Config.withDefault(8080))、API_KEY は Config.Redacted(\"API_KEY\") で読み込みます。authHeader では Redacted.value(apiKey) で中身を取り出します。"
+    },
+    {
+      "name": "logging1",
+      "path": "11_config_logging/logging1.ts",
+      "hint": "console.log の代わりに yield* Effect.log(...) を使い、quantity > 10 のときに yield* Effect.logWarning(...) を出します。collected には .pipe(Effect.provide(Logger.layer([collector])), Effect.provideService(References.MinimumLogLevel, \"Debug\")) を付けます。"
+    },
+    {
+      "name": "stream1",
+      "path": "12_stream/stream1.ts",
+      "hint": "先に Stream.filter で 3 の倍数に絞ってから Stream.map で 2 乗し、Stream.take(4) で切り取って Stream.runCollect で集めます。total は Stream.runFold(() => 0, (acc, n) => acc + n) です。"
+    },
+    {
+      "name": "stream2",
+      "path": "12_stream/stream2.ts",
+      "hint": "Stream.mapEffect(fetchUser, { concurrency: 3 }) で同時に取得し、Stream.grouped(2) で 2 件ずつまとめてから Stream.mapEffect(saveBatch) で保存します。"
     }
   ]
 }
