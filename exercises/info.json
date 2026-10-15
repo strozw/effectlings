@@ -155,6 +155,51 @@
       "name": "stream2",
       "path": "12_stream/stream2.ts",
       "hint": "Stream.mapEffect(fetchUser, { concurrency: 3 }) で同時に取得し、Stream.grouped(2) で 2 件ずつまとめてから Stream.mapEffect(saveBatch) で保存します。"
+    },
+    {
+      "name": "cause1",
+      "path": "13_cause_exit/cause1.ts",
+      "hint": "loadDefaults は parseJson(...).pipe(Effect.orDie) にすると ParseError が欠陥に変わり、エラー型が never になります。handleRequest は handler(path).pipe(Effect.catchDefect(() => Effect.succeed(\"500 Internal Server Error\"))) です。"
+    },
+    {
+      "name": "cause2",
+      "path": "13_cause_exit/cause2.ts",
+      "hint": "onFailure で Cause.hasFails(cause) を最初に調べ、Cause.findErrorOption(cause) を Option.match で取り出して `error: ${error._tag}` を作ります。次に Cause.hasDies(cause) なら \"defect\"、どちらでもなければ \"interrupted\" です。"
+    },
+    {
+      "name": "fn1",
+      "path": "14_effect_fn/fn1.ts",
+      "hint": "transfer は Effect.fn(\"transfer\")(function* (amount: number) { ... }) と包みます。safeTransfer は Effect.fn(\"safeTransfer\")(function* (amount: number) { return yield* transfer(amount) }, Effect.catchTag(\"InsufficientFunds\", () => Effect.succeed(\"skipped\"))) です。"
+    },
+    {
+      "name": "fn2",
+      "path": "14_effect_fn/fn2.ts",
+      "hint": "2 番目の引数を (effect, requestId) => effect.pipe(Effect.annotateLogs(\"requestId\", requestId), Effect.withLogSpan(\"handleRequest\")) にします。"
+    },
+    {
+      "name": "semaphore1",
+      "path": "15_more_concurrency/semaphore1.ts",
+      "hint": "makeClient の中で const semaphore = yield* Semaphore.make(2) を作り、callApi を (path) => semaphore.withPermits(1)(request(path)) にします。"
+    },
+    {
+      "name": "pubsub1",
+      "path": "15_more_concurrency/pubsub1.ts",
+      "hint": "購読は配信より先に行う必要があります。PubSub.subscribe を 2 回呼んで mailer と auditor それぞれの購読を作り、そのあとで PubSub.publishAll します。"
+    },
+    {
+      "name": "cache1",
+      "path": "15_more_concurrency/cache1.ts",
+      "hint": "makeProfiles の中で const cache = yield* Cache.make({ lookup: fetchProfile, capacity: 100 }) を作り、getProfile を (id) => Cache.get(cache, id) にします。"
+    },
+    {
+      "name": "testing1",
+      "path": "16_testing/testing1.ts",
+      "hint": "WeatherTest は Layer.succeed(Weather, { temperature: (city) => city in temperatures ? Effect.succeed(temperatures[city]!) : Effect.fail(new CityNotFound({ city })) }) です。runTest では WeatherLive の代わりに WeatherTest を提供します。"
+    },
+    {
+      "name": "testing2",
+      "path": "16_testing/testing2.ts",
+      "hint": "console.log(...) を yield* Console.log(...) に置き換えます。testLayer は Layer.mergeAll(TestConsole.layer, TestClock.layer()) です。"
     }
   ]
 }
