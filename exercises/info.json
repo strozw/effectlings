@@ -215,6 +215,16 @@
       "name": "platform3",
       "path": "17_platform/platform3.ts",
       "hint": "priority: Flag.Int(\"priority\").pipe(Flag.withAlias(\"p\"), Flag.withDefault(3)) と done: Flag.Boolean(\"done\").pipe(Flag.withDefault(false)) を追加し、ハンドラで受け取って出力に使います。"
+    },
+    {
+      "name": "capstone1",
+      "path": "18_capstone/capstone1.ts",
+      "hint": "save は Effect.gen の中で Ref.get(store) し、current.has(bookmark.url) なら return yield* new DuplicateBookmark({ url: bookmark.url })、そうでなければ Ref.update します。addBookmark では decode の結果に .pipe(Effect.mapError((error) => new InvalidBookmark({ message: error.message }))) を付けます。byTag は filter で tags.includes(tag) のものに絞ります。"
+    },
+    {
+      "name": "capstone2",
+      "path": "18_capstone/capstone2.ts",
+      "hint": "url ごとに check(url).pipe(Effect.retry({ times: 2 }), Effect.timeout(\"200 millis\"), Effect.map(...), Effect.catchTags({ NetworkError: ..., TimeoutError: ... }), Effect.map(...)) の順につなげ、Effect.forEach に { concurrency: 3 } を渡します。retry を timeout より先に置くと、再試行を含めた全体に時間制限がかかります。"
     }
   ]
 }
