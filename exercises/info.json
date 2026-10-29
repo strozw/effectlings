@@ -200,6 +200,21 @@
       "name": "testing2",
       "path": "16_testing/testing2.ts",
       "hint": "console.log(...) を yield* Console.log(...) に置き換えます。testLayer は Layer.mergeAll(TestConsole.layer, TestClock.layer()) です。"
+    },
+    {
+      "name": "platform1",
+      "path": "17_platform/platform1.ts",
+      "hint": "追記するには fs.writeFileString(file, text, { flag: \"a\" }) とします。listNotes の先頭で if (!(yield* fs.exists(file))) return [] としてファイルがない場合を扱います。"
+    },
+    {
+      "name": "platform2",
+      "path": "17_platform/platform2.ts",
+      "hint": "getTodo は Effect.flatMap(HttpClientResponse.filterStatusOk) → Effect.flatMap((response) => response.json) → Effect.flatMap(Schema.decodeUnknownEffect(Todo)) の順につなげます。findTodo には Effect.catchTag(\"HttpClientError\", () => Effect.succeedNone) を足します。"
+    },
+    {
+      "name": "platform3",
+      "path": "17_platform/platform3.ts",
+      "hint": "priority: Flag.Int(\"priority\").pipe(Flag.withAlias(\"p\"), Flag.withDefault(3)) と done: Flag.Boolean(\"done\").pipe(Flag.withDefault(false)) を追加し、ハンドラで受け取って出力に使います。"
     }
   ]
 }
